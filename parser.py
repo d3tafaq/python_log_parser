@@ -5,8 +5,6 @@ import os
 import glob
 
 
-#filename = "ts_ippcc_mrg_compl_st_g9.txt"
-#path = 'C:/Users/evkuzmin/Documents/test/libraries'
 str_txt = '*.txt'
 str_end = '*.end'
 
@@ -15,8 +13,6 @@ def get_log_files(path):
     path = path + '/**/' + str_txt #ToDo: cange to another mathod
     for file in (glob.glob(path, recursive=True)):
         new_path = file[:-4] + str_end
-        #print (new_path)
-        #print (file)
         if glob.glob(new_path): 
             file_list.append(file)
     return file_list
@@ -48,7 +44,6 @@ def get_pass_rate(filename):
             if (re.search(r'Successes', log)):
                 success_tests = re.findall(r'\d+', re.findall(r'Successes.*\d+', log)[0])
                 result = int(success_tests[0])/int(number_tests[0]) * 100
-                #print ("%.2f" % result)
                 return ("%.2f" % result)
         else:
             return 'Aborted'
