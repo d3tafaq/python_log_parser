@@ -2,6 +2,7 @@ import sys
 import re
 import csv
 import os 
+import argparse
 
 report_header = ['OS', 'Architecture', 'Domain', 'Optimization', 'Pass Rate']
 supported_os = ['linux', 'windows', 'macosx']
@@ -53,26 +54,35 @@ def generate_csv(report):
         exit(1)
     return
 
+#def createParser ():
+  #  parser = argparse.ArgumentParser()
+   # parser.add_argument ('-p', '--platform', default='linux')
+   # return parser
+
     
 if __name__ == "__main__":
-
+    
     if len(sys.argv) >= 2: 
         if not os.path.exists(sys.argv[1]): 
             print("Path is not correct")
             exit(1)
         path = sys.argv[1]
-        if len(sys.argv) >= 3:
-            if sys.argv[2] not in supported_os:
-                print("OS is not correct")
-                exit(1)
-            elif sys.argv[2] not in os.listdir(path):
-                print("OS is not in folder")
-                exit(1)
-            os_list = [sys.argv[2]]
 
+        if len(sys.argv) >= 4:
+            param = sys.argv[2]
+            if param == '--platform':
+                if sys.argv[3] not in supported_os:
+                    print("OS is not correct")
+                    exit(1)
+                elif sys.argv[3] not in os.listdir(path):
+                    print("OS is not in folder")
+                    exit(1)
+                platform_list = [sys.argv[3]]
+            else:
+                platform_list = os.listdir(path)
         else: 
-            os_list = os.listdir(path)
+            platform_list = os.listdir(path)
 
-        print("Specified path =", path, "selected OS = ", ', '.join(os_list))
-        generate_csv(generate_report(path, os_list))
+        print("Specified path =", path, "selected OS = ", ', '.join(platform_list))
+        generate_csv(generate_report(path, platform_list))
         print("Completed!")
