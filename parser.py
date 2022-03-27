@@ -4,7 +4,7 @@ import csv
 import os 
 
 report_header = ['OS', 'Architecture', 'Domain', 'Optimization', 'Pass Rate']
-supported_os = ['linux', 'windows', 'macosx']
+supported_platforms = ['linux', 'windows', 'macosx']
 ext_txt = '.txt'
 ext_end = '.end'
 
@@ -57,18 +57,18 @@ if __name__ == "__main__":
     
     if len(sys.argv) >= 2: 
         if not os.path.exists(sys.argv[1]): 
-            print("Path is not correct")
+            print("Entered path is not correct")
             exit(1)
         path = sys.argv[1]
 
         if len(sys.argv) >= 4:
             param = sys.argv[2]
             if param == '--platform':
-                if sys.argv[3] not in supported_os:
-                    print("OS is not correct")
+                if sys.argv[3] not in supported_platforms:
+                    print("Entered platform is not correct")
                     exit(1)
                 elif sys.argv[3] not in os.listdir(path):
-                    print("OS is not in folder")
+                    print("Entered platform is not in folder")
                     exit(1)
                 platform_list = [sys.argv[3]]
             else:
@@ -76,6 +76,6 @@ if __name__ == "__main__":
         else: 
             platform_list = os.listdir(path)
 
-        print("Specified path =", path, "selected OS = ", ', '.join(platform_list))
+        print("Specified path =", path, "selected platform = ", ', '.join(platform_list))
         generate_csv(generate_report(path, platform_list))
         print("Completed!")
