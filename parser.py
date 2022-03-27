@@ -2,7 +2,6 @@ import sys
 import re
 import csv
 import os 
-import argparse
 
 report_header = ['OS', 'Architecture', 'Domain', 'Optimization', 'Pass Rate']
 supported_os = ['linux', 'windows', 'macosx']
@@ -25,11 +24,11 @@ def get_pass_rate(filename):
             return 'Aborted'
 
 
-def generate_report(path, os_list):
+def generate_report(path, platform_list):
 
     report = []
-    for os_type in os_list:
-        tests_path = os.path.join(path, os_type, 'tests')
+    for platform in platform_list:
+        tests_path = os.path.join(path, platform, 'tests')
         for root, dirs, files in os.walk(tests_path):
             for name in files:
                 log_file = os.path.splitext(name)
@@ -38,7 +37,7 @@ def generate_report(path, os_list):
                         pass_rate = get_pass_rate(os.path.join(root, name))
                     else: 
                         pass_rate = 'n/a'
-                    report.append([os_type] + re.findall(r'\w+', root.split(tests_path)[1]) + re.findall(r'..$',log_file[0]) + [pass_rate])
+                    report.append([platform] + re.findall(r'\w+', root.split(tests_path)[1]) + re.findall(r'..$',log_file[0]) + [pass_rate])
     return report
 
 
@@ -53,13 +52,7 @@ def generate_csv(report):
         print("CSV file cannot be created")
         exit(1)
     return
-
-#def createParser ():
-  #  parser = argparse.ArgumentParser()
-   # parser.add_argument ('-p', '--platform', default='linux')
-   # return parser
-
-    
+   
 if __name__ == "__main__":
     
     if len(sys.argv) >= 2: 
