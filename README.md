@@ -3,6 +3,7 @@
 
 ### Requirements
 - Script works on python3
+- Script can be performed on Windows and Linux OS
 
 - Script accepts input values:
     - Folder with logs 
@@ -20,7 +21,9 @@
 
 - Output is generated in csv file. 
 
-
+### Example 
+    `python parser.py C:/Users/user/Documents/test/libraries --platform macosx`
+    `python parser.py C:/Users/user/Documents/test/libraries`
 
 
 
