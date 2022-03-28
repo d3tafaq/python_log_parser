@@ -7,7 +7,7 @@
 
 - Script accepts input values:
     - Folder with logs 
-        - Internal structure - Platform_name / "test" / Arcitecture / Domain / file\[optimization\].txt
+        - Internal structure - <platform_name> / "test" / \<arcitecture> / \<domain> / <file\[optimization\].txt>
         - txt file must contain lines: 
 
             `Number of tests : 'value`                                                      
